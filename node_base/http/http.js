@@ -2,11 +2,15 @@ const http = require('http')
 const url = require('url')
 const fs = require('fs')
 const config = require('./config')
+const loader = require('./loader')
+const log = require('./log')
+
 http.createServer((request, response) => {
   // console.log(request)
   // console.log(request.url)
   const pathName = url.parse(request.url).pathname
   const params = url.parse(request.url, true).query
+  log(pathName)
   const isStatic = isStaticRequest(pathName)
   if (isStatic) {
     try {
@@ -21,7 +25,19 @@ http.createServer((request, response) => {
       response.end()
     }
   } else {
-    console.log(pathName)
+    if (loader.get(pathName) !== null) {
+      try {
+        loader.get(pathName)(request, response)
+      } catch (e) {
+        response.writeHead(500)
+        response.write('<html><body><h1>500 Internal Server Error</h1></body></html>')
+        response.end()
+      }
+    } else {
+      response.writeHead(404)
+      response.write('<html><body><h1>404 Not Found</h1></body></html>')
+      response.end()
+    }
   }
 }).listen(config['port'])
 

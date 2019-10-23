@@ -24,9 +24,9 @@ server.on('connection', (socket) => {
   console.log('有新的客户端连接')
   socket.on('data', (data) => {
     console.log(data.toString())
-    // socket.write('hello client!!')
+    socket.write('hello client!!')
   })
-  // socket.on('end', () => {
-  //   console.log('连接已关闭')
-  // })
+  socket.on('end', () => {
+    console.log('连接已关闭')
+  })
 })

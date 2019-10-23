@@ -21,7 +21,7 @@ const fs = require('fs');
 
 
 //写文件
-// const content = '这个是一个信息科技公司 11112222'
+// const content = '2343435'
 // fs.writeFile('./content.txt', content, 'utf-8', (err) => {
 //   if (err) throw err
 //   console.log('写入成功！')

@@ -1,4 +1,4 @@
-console.log('aaaa')
+// console.log('aaaa')
 let a = 'a'
 let b = 123
 // module.exports = a
@@ -15,8 +15,9 @@ let b = 123
 
 // console.log(module.exports == exports)
 
-exports = b
-module.exports = a
+// module.exports = a
+// exports = b
+
 
 
 // console.log(arguments)

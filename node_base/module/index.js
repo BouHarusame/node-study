@@ -1,4 +1,5 @@
 const test = require('./test')
+//  require('./test')
 
 // console.log(test.a)
 // console.log(test)
@@ -11,7 +12,7 @@ const test = require('./test')
 
 // function abc (exports, require, module, __filename,  __dirname) {
 
-  // 我们写的代码的位置
+//   我们写的代码的位置
  
   
 //   return module.exports
@@ -21,4 +22,4 @@ const test = require('./test')
 // console.log(arguments[0] == exports)
 // console.log(arguments[1] == require)
 
-console.log(module)
+// console.log(module)
