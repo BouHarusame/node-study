@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Robot</title>
+    <link rel="stylesheet" href="index.css">
+    <script>
+
+        function appendChat(text, type) {
+            var chat = document.createElement("div");
+            var content = document.createElement("span");
+            var img = document.createElement("img");
+            content.innerHTML = text;
+            if (type == 1) {
+                img.src = "./2.jpg";
+                img.style.float = "right";
+                img.style.width = "35px";
+                img.style.height = "35px";
+                img.style.marginRight = "5px";
+                content.classList.add("myChat");
+            } else {
+                img.src = "./1.jpeg";
+                img.style.float = "left";
+                img.style.width = "35px";
+                img.style.height = "35px";
+                img.style.marginLeft = "5px";
+                content.classList.add("robotChat");
+            }
+
+            chat.appendChild(img);
+            chat.style.overflow = "hidden";
+            chat.style.marginTop = "15px";
+            chat.appendChild(content);
+            document.getElementsByClassName("content")[0].appendChild(chat);
+        }
+
+        function send(event) {
+            if (event instanceof KeyboardEvent && event.key != "Enter") {
+                return;
+            }
+            var val = document.getElementById("chatArea").value;
+            if (val == null || val == "") {
+                return;
+            }
+            appendChat(val, 1);
+
+            var ajax = new XMLHttpRequest();
+            ajax.open("get","http://127.0.0.1:12306/api/chat?text=" + val);
+            ajax.send();
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState==4 &&ajax.status==200) {
+                    appendChat(JSON.parse(ajax.responseText).text, 2);
+                    document.getElementById("chatArea").value = "";
+                }
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="chat">
+        <div class="head">聊天机器人</div>
+        <div class="content"></div>
+        <div class="input">
+            <input type="text" id="chatArea" onkeydown="send(event)"/>
+            <div id="sendBtn" onclick="send(event)">发送</div>
+        </div>
+    </div>
+</body>
+</html>
