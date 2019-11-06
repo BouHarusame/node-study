@@ -14,7 +14,7 @@ window.onload = function () {
     headers: new Headers({
       'Content-Type': 'application/json'
     })
-  })
+   })
     .then(function(response) {
       return response.text().then(res => {
         let p = document.createElement('p')
